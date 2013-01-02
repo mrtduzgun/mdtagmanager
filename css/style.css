@@ -1,0 +1,127 @@
+/* 
+    Document   : style
+    Created on : 02.Oca.2013, 13:32:22
+    Author     : murat
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+#mdtagmanagerWrapper{
+    height:100%;
+    /*width:100%;	
+    border-top:1px solid #CCC;
+    border-bottom:1px solid #CCC;*/
+    padding:10px;
+    font-size:12px;
+    color:#000;	
+    font-family:helvetica;
+    overflow:hidden;
+}
+
+#mdtagmanagerWrapper a{
+    text-decoration:none;
+    color:#000;
+}
+
+#mdtagmanagerWrapper a:hover{
+    text-decoration:underline;
+    color:#000;
+}
+
+.mdtagmanagerSearchBar{
+    width:370px;
+    float:left;
+}
+
+.mdtagmanagerSearchBar input[type="text"]{
+    width:350px;
+    height:20px;
+    line-height:20px;
+    vertical-align:middle;	
+    padding:0 4px 0;
+    color:#B8B8B8;
+
+}
+
+.mdtagmanagerSearchBtn{
+    width:auto;
+    height:auto;
+    clear:right;
+}
+
+.mdtagmanagerTagCounter{
+    width:200px;
+    clear:both;
+    color:#7b7b7b;
+    margin:2px;
+}
+
+.mdtagmanagerExistingTagWrapper{
+    width:90%;
+    height:auto;
+    float:left;
+    border:1px solid #CCC;
+    margin:20px 0 0 0;
+    padding:10px;
+    clear:right;
+    border-radius: 2px;
+}	
+
+.mdtagmanagerTag, .mdtagmanagerTagPlaceholder {
+    width:auto;
+    height:20px;
+    line-height:20px;
+    float:left;
+    padding:2px;
+    margin:0 5px 10px;
+    border-right:1px solid #dddddd;
+    border-bottom:1px solid #dddddd;
+    border-top:1px solid #f0f0f0;
+    border-left:1px solid #f0f0f0;
+    background:#f0f0f0;
+    display: inline-block;
+    border-radius: 4px;
+}
+
+.mdtagmanagerTag:hover {
+    background: #aeaeae;
+    border: 1px solid #000;
+}
+
+.mdtagmanagerTagPlaceholder {
+    background:#fff;
+    border: 2px dashed #dedede;
+}
+
+.mdtagmanagerTagText{
+    cursor:pointer;
+    font-weight:bold;
+    float:left;
+    text-indent: 5px;
+}
+
+.mdtagmanagerTagDelete{
+    background:url("../images/cross01.png") no-repeat  0 0;
+    width:15px;
+    height:15px;
+    float:left;
+    margin:2px 0 0 10px;
+    padding:0 5px 0 0;
+}
+
+.mdtagmanagerTagDelete:hover{
+    background:url("../images/cross02.png") no-repeat  0 0;
+    cursor:pointer;
+}
+
+.mdtagmanagerTagDelete:active{
+    background:url("../images/cross03.png") no-repeat  0 0;
+    cursor:pointer;
+}
+
+.mdtagmanagerDragInfo{
+    background: url("../images/drag.png") no-repeat scroll 0 7px transparent;
+    float:left;
+    padding:5px 60px 0;
+    color:#7b7b7b;
+}
