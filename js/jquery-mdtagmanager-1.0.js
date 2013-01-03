@@ -32,6 +32,7 @@
                 '<div class="mdtagmanagerSearch">'+
                     '<div class="mdtagmanagerSearchBar"><input type="text"/></div>'+
                     '<div class="mdtagmanagerSearchBtn"><input type="submit" name="ekle" value="Ekle" class="mdtagmanagerAddBtn" /></div>'+
+                    '<div class="mdtagmanagerAutocompleteWrapper"><ul><li><span>Kelime-1</span></li><li><span>Kelime-2</span></li><li><span>Kelime-3</span></li></ul></div>'+
                     '<div class="mdtagmanagerTagCounter">Hala ekleyebilirsiniz: <span>'+tagCounter+'</span></div>'+
                 '</div>'+
                 '<div class="mdtagmanagerExistingTagWrapper">'+
