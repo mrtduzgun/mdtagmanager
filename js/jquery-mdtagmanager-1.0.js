@@ -24,12 +24,11 @@
         
         init();
         var existingTagWrapper = $this.find(".mdtagmanagerExistingTagWrapper");
-        
-        registerEvents();
+        var tagCounterBox = $this.find(".mdtagmanagerTagCounter span");
         
         function init()
         {
-            $('<div id="mdtagmanagerWrapper">'+
+            $('<div class="mdtagmanagerWrapper">'+
                 '<div class="mdtagmanagerSearch">'+
                     '<div class="mdtagmanagerSearchBar"><input type="text"/></div>'+
                     '<div class="mdtagmanagerSearchBtn"><input type="submit" name="ekle" value="Ekle" class="mdtagmanagerAddBtn" /></div>'+
@@ -43,6 +42,9 @@
                     '<input type="reset" name="iptal" value="İptal"  class="mdtagmanagerCancelBtn" />'+
                 '</div>'+
             '</div>').appendTo($this);
+        
+            fillInitTags();
+            registerEvents();
         }
                 
         function saveChanges() {
@@ -52,13 +54,26 @@
         function registerEvents()
         {
             // add tag button event registered
-            $this.find(".mdtagmanagerAddBtn").click(function(){
+            $this.find(".mdtagmanagerAddBtn").live('click', function(){
                 addTag(0, $this.find(".mdtagmanagerSearchBar input").val());
             });
             
             // add tag button event registered
             $this.find(".mdtagmanagerTagDelete").live("click", function(){
                 deleteTag($(this).parent());
+            });
+            
+            // add tag button event registered
+            $this.find(".mdtagmanagerSaveBtn").live("click", function(){
+                var tagData = [];
+                existingTagWrapper.children(".mdtagmanagerTag").each(function(){
+                    tagData.push($(this).data("data"));
+                });
+            });
+            
+            // cancel button event registered
+            $this.find(".mdtagmanagerCancelBtn").live("click", function(){
+                resetTags();
             });
             
             // sorting tag event registered
@@ -71,19 +86,37 @@
                     });
                 });
             }
+            
+            // autocomplete event registered
+            var searchBox = $this.find(".mdtagmanagerSearchBar input");
+            searchBox.autocomplete({
+                source: function(request, response) {
+                    $.getJSON('server.php', {key: request.term}, response);
+                },
+                minLength: 2,
+                select: function(event, ui) {
+                }
+            });
         }
         
-        function orderTags() {
+        function getTagDatas() {
+            var tagData = [];
             existingTagWrapper.children(".mdtagmanagerTag").each(function(i){
                 var data = $this.data("data");
                 data.order = i+1;
-                $this.data("data", data);
+                tagData.push(data);
             });
+            
+            return tagData;
         }
         
         function deleteTag(deletedObj) {
             deletedObj.fadeOut(300, function(){
                 deletedObj.remove();
+                ++tagCounter;
+                tagCounterBox.text(tagCounter);
+                if (tagCounter > 0)
+                    tagCounterBox.removeClass("tagZero");
             });
         }
         
@@ -93,21 +126,35 @@
             
             if (text != "")
             {
-                if (tagCounter <= 0)
-                var metadata = {
-                    order: lastOrderNum + 1,
-                    id: id ? id : 0
-                };
-                
-                $('<div class="mdtagmanagerTag" style="display:none;">'+
-                    '<span class="mdtagmanagerTagText">'+text+'</span>'+
-                    '<span class="mdtagmanagerTagDelete">&nbsp;</span>'+
-                  '</div>').appendTo(existingTagWrapper).data("data", metadata).
-                  fadeIn(300, function(){
-                    opts.addTag();
-                    --tagCounter;
-                  });
+                if (tagCounter > 0) 
+                {
+                    var metadata = {
+                        order: lastOrderNum + 1,
+                        id: id ? id : 0
+                    };
+
+                    $('<div class="mdtagmanagerTag" style="display:none;">'+
+                        '<span class="mdtagmanagerTagText">'+text+'</span>'+
+                        '<span class="mdtagmanagerTagDelete">&nbsp;</span>'+
+                      '</div>').appendTo(existingTagWrapper).data("data", metadata).
+                      fadeIn(300, function(){
+                        opts.addTag();
+                        --tagCounter;
+                        tagCounterBox.text(tagCounter);
+                      });
+                }
+               else
+                  tagCounterBox.addClass("tagZero").fadeOut(300).fadeIn(300);
             }
+        }
+        
+        function fillInitTags() {
+            for (var tag in opts.initTags) {
+                addTag(tag.tag_id, tag.tag_text);
+            }
+        }
+        
+        function resetTags() {
         }
         
         return true;
@@ -118,13 +165,14 @@
         numberOfTag: 10,
         numberOfDisplayedExistingTags: 5,
         tagSorting: true,
+        initTags: [],
         addTag: function() {
             
         },
         deleteTag: function() {
             
         },
-        saveChanges: function() {
+        saveChanges: function(tagData) {
             
         },
         lang: {
