@@ -8,12 +8,17 @@ and open the template in the editor.
     <title>MD Tag Manager Demo</title>    
     <link href="css/redmond/jquery-ui-1.9.2.custom.min.css" type="text/css" rel="stylesheet" />
     <link href="css/style.css" type="text/css" rel="stylesheet" />
+    <link href="css/fm-buttons.css" type="text/css" rel="stylesheet" />
     <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="js/jquery-ui-1.9.2.custom.min.js"></script>
     <script type="text/javascript" src="js/jquery-mdtagmanager-1.0.js"></script>
     <script type="text/javascript">
         $(function(){
-            $("#mdtagmanagerDemo").mdtagmanager();
+            $("#mdtagmanagerDemo").mdtagmanager({
+                saveTags: function(tagData){
+                    console.log(tagData);
+                }
+            });
         });
     </script>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
